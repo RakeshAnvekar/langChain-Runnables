@@ -49,7 +49,7 @@ chain = DummyChain(llm=llm, prompt=prompt)
 output = chain.run({"country": "India"})
 print(output)
 
-## this caain class is not flexible , we canot make call two times with different inputs, it means this is not flexible like runnables
+## this chain class is not flexible , we canot make call two times with different inputs, it means this is not flexible like runnables
 #with this approch we cant create  all kind of workflows.
 # because  we can communicate with DummyLLM with predict method only. and DummyPrompt with format method only.
 #We need to standardize the interface to make it more flexible and reusable.
