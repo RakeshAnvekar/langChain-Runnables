@@ -11,7 +11,7 @@ class Runnable(ABC):
 
 
 ##-------------- Simple dummy LLM component
-class DummyLLM(Runnable):
+class DummyLLM(Runnable): 
     def __init__(self):
         print("DummyLLM initialized")
 

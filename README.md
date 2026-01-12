@@ -1,9 +1,9 @@
+
 # Runnables in LangChain
 
 ## Why Runnables?
 
 When the LangChain team started helping developers build LLM-based applications, they introduced core components such as:
-
 - LLMs
 - Prompts
 - Output parsers
@@ -14,113 +14,65 @@ These components were powerful, but they were not designed to seamlessly communi
 
 ## The Era of Chains
 
-As AI became popular, the LangChain team reviewed many AI repositories and identified common patterns.
-To simplify development, they introduced **Chains** to combine multiple steps in LLM-based applications.
-
-Over time:
-
-- Many different chains were created for different use cases
-- The codebase became large and heavy
-- It became hard for AI engineers to identify the right chain for their use case
-- Customization and composability became difficult
-
----
-
-## The Problem
-
-- Too many predefined chains
-- Complex and bulky abstractions
-- Difficult to reuse small pieces of logic
-- Hard to reason about what each chain actually does
+As AI adoption increased, LangChain introduced Chains to combine multiple steps.
+Over time, chains became heavy, hard to customize, and difficult to reason about.
 
 ---
 
 ## The Solution: Runnables
 
-To solve these problems, LangChain introduced **Runnables**.
+Runnables are lightweight, composable building blocks.
 
----
-
-## What is a Runnable?
-
-A **Runnable** is a **unit of work**.
-
-Each runnable has:
-
+A Runnable is a unit of work with:
 - Input
 - Processing logic
 - Output
 
-Think of it as a small, focused building block that does one dedicated job.
-
----
-
-## Common Interface
-
-All runnables share a common interface:
-
-```
+All runnables follow a common interface:
 invoke(input) → output
-```
-
-Because every runnable follows the same interface, they can be easily connected together.
 
 ---
 
-## Composing Runnables
+## Types of Runnables in LangChain
 
-You can connect multiple runnables like this:
+### 1. Task-Specific Runnables
 
-```
-[R1] → [R2] → [R3]
-```
+These are core LangChain components converted into runnables.
 
-Each runnable:
+Examples:
+- ChatOpenAI
+- PromptTemplate
+- Retriever
+- Output Parsers
 
-- Takes input
-- Processes it
-- Passes output to the next runnable
-
----
-
-## Runnable Workflows are Also Runnables
-
-A powerful concept in LangChain:
-
-When you connect multiple runnables to form a workflow, the entire workflow itself becomes a runnable.
-
-This means:
-
-- You can reuse workflows
-- You can nest workflows
-- You can connect workflows to other workflows
-
-```
-[Workflow A] → [Workflow B] → [Workflow C]
-```
+They focus on WHAT task is performed.
 
 ---
 
-## Key Benefits of Runnables
+### 2. Runnable Primitives
 
-- Lightweight and modular
-- Easy to compose
-- Easy to reason about
-- Highly reusable
-- Avoids large, monolithic chains
+These are used to connect and control task-specific runnables.
+They focus on HOW tasks are executed.
 
----
+#### RunnableSequence
+Executes runnables sequentially.
+[R1] → [R2]
 
-## In Simple Terms
+#### RunnableParallel
+Executes multiple runnables in parallel and returns a dictionary of outputs.
 
-```
-Chains     = Heavy, predefined solutions
-Runnables  = Flexible, Lego-like building blocks
-```
+#### RunnablePassthrough
+Returns input as output without modification.
+
+#### RunnableLambda
+Allows custom Python logic inside the pipeline.
+
+#### RunnableBranch
+Routes input conditionally to different chains.
 
 ---
 
 ## Summary
 
-Runnables provide a clean, composable, and scalable abstraction for building LLM-powered applications.
-They replace rigid, monolithic chains with flexible building blocks, giving developers full control over their workflows.
+Chains are heavy and predefined.
+Runnables are flexible, modular, and composable.
